@@ -118,6 +118,38 @@ echo 'Width: ' . $door->getWidth();
 echo 'Height: ' . $door->getHeight();
 ```
 **JavaScript ES6 Programmatic Example**
+First need Door defination
+```javascript
+class WoodenDoor {
+  constructor(width, height){
+     this.height = height
+     this.width = width 
+  }
+  getHeight(){
+     return this.height
+  }
+  
+  getWidth() {
+     return this.width
+  }
+
+
+```
+Then we have our door factory that makes the door and returns it
+```javascript
+class DoorFactory {
+   static makeDoor(width, height){
+     return new WoodenDoor(width, height)
+   }
+}
+```
+
+And then it can be used as
+```javascript
+const door = DoorFactory.makeDoor(100, 200);
+console.log(door.getWidth()) // Get width
+console.log(door.getHeight()) // get height
+```
 
 **When to Use?**
 
