@@ -239,6 +239,34 @@ $marketingManager = new MarketingManager();
 $marketingManager->takeInterview(); // Output: Asking about community building.
 ```
 
+ **Javascript Programmatic Example**
+
+Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
+
+```javascript
+
+class Interviewer
+{
+    askQuestions () {
+      throw new Error("This method must be overwritten!")
+    }
+}
+
+class Developer extends Interviewer
+{
+    askQuestions() {
+       console.log('Asking about design patterns!')
+    }
+}
+
+class CommunityExecutive extends Interviewer
+{
+    askQuestions() {
+       console.log('Asking about community building')
+    }
+}
+
+```
 **When to use?**
 
 Useful when there is some generic processing in a class but the required sub-class is dynamically decided at runtime. Or putting it in other words, when the client doesn't know what exact sub-class it might need.
