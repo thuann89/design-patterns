@@ -31,8 +31,6 @@ Wikipedia describes them as
 
 ***
 <p align="center"><b> Want to see example in Javascript ES6?</b><br>Visit <a href="https://github.com/thuann89/design-patterns-for-php-7-and-javascript-ES6/blob/master/Javascript_ES6.md">Javascript ES6 Version</a> where I add example in Javascript instead of PHP 7</p>
-***
-
 
 Types of Design Patterns
 -----------------
