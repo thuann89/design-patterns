@@ -10,12 +10,6 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
 </p>
 
 
-***
-
-<p align="center"><b> Want to learn something new?</b><br>Visit <a href="http://hugobots.com">Hugobots</a> where I teach people</p>
-
-***
-
 🚀 Introduction
 =================
 
@@ -34,6 +28,11 @@ Wikipedia describes them as
 - If used in a correct place in a correct manner, they can prove to be a savior; or else they can result in a horrible mess of a code.
 
 > Also note that the code samples below are in PHP-7, however this shouldn't stop you because the concepts are same anyways. Plus the **support for other languages is underway**.
+
+***
+<p align="center"><b> Want to see example in Javascript ES6?</b><br>Visit <a href="https://github.com/thuann89/design-patterns-for-php-7-and-javascript-ES6/blob/master/Javascript_ES6.md">Javascript ES6 Version</a> where I add example in Javascript instead of PHP 7</p>
+***
+
 
 Types of Design Patterns
 -----------------
