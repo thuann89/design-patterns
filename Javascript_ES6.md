@@ -231,7 +231,7 @@ class Carpenter extends DoorFittingExpert
 ```
 
 Now we have our abstract factory that would let us make family of related objects i.e. wooden door factory would create a wooden door and wooden door fitting expert and iron door factory would create an iron door and iron door fitting expert
-```php
+```javascript
 class DoorFactory
 {
     // Must return Door type
@@ -273,15 +273,15 @@ class IronDoorFactory implements DoorFactory
 ```
 And then it can be used as
 ```javascript
-const woodenFactory = new WoodenDoorFactory()
 
 let door = {}
 let export = {}
+const woodenFactory = new WoodenDoorFactory()
 
-door = $woodenFactory.makeDoor()
-expert = $woodenFactory.makeFittingExpert()
+door = woodenFactory.makeDoor()
+expert = woodenFactory.makeFittingExpert()
 
-woodenDoor.getDescription()  // Output: I am a wooden door
+door.getDescription()  // Output: I am a wooden door
 expert.getDescription() // Output: I can only fit wooden doors
 
 // Same for Iron Factory
