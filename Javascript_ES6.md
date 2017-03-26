@@ -1,1 +1,2 @@
-== Design Patterns for Javascript ES6 ==
+Design Patterns for Javascript ES6
+==========
