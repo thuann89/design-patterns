@@ -1,12 +1,20 @@
-Design patterns for PHP 7 and Javascript ES6 is inpired by Design Patterns for Human
+![Design Patterns For Humans](https://cloud.githubusercontent.com/assets/11269635/23065273/1b7e5938-f515-11e6-8dd3-d0d58de6bb9a.png)
+
 ***
 
 <p align="center">
-🎉 This repo is forked from <a href="https://github.com/kamranahmedse/design-patterns-for-humans"> Design Patterns for Human</a>! 🎉
+🎉 Ultra-simplified explanation to design patterns! 🎉
 </p>
 <p align="center">
 A topic that can easily make anyone's mind wobble. Here I try to make them stick in to your mind (and maybe mine) by explaining them in the <i>simplest</i> way possible.
 </p>
+
+
+***
+
+<p align="center"><b> Want to learn something new?</b><br>Visit <a href="http://hugobots.com">Hugobots</a> where I teach people</p>
+
+***
 
 🚀 Introduction
 =================
@@ -25,7 +33,7 @@ Wikipedia describes them as
 - Do not try to force them; bad things are supposed to happen, if done so. Keep in mind that design patterns are solutions **to** problems, not solutions **finding** problems; so don't overthink.
 - If used in a correct place in a correct manner, they can prove to be a savior; or else they can result in a horrible mess of a code.
 
-> Also note that the code samples below are in PHP-7 and JavaScript ES6, however this shouldn't stop you because the concepts are same anyways. Plus the **support for other languages is underway**.
+> Also note that the code samples below are in PHP-7, however this shouldn't stop you because the concepts are same anyways. Plus the **support for other languages is underway**.
 
 Types of Design Patterns
 -----------------
@@ -61,7 +69,7 @@ In plain words
 Wikipedia says
 > In object-oriented programming (OOP), a factory is an object for creating other objects – formally a factory is a function or method that returns objects of a varying prototype or class from some method call, which is assumed to be "new".
 
-**PHP-7 Programmatic Example**
+**Programmatic Example**
 
 First of all we have a door interface and the implementation
 ```php
@@ -108,39 +116,6 @@ And then it can be used as
 $door = DoorFactory::makeDoor(100, 200);
 echo 'Width: ' . $door->getWidth();
 echo 'Height: ' . $door->getHeight();
-```
-**JavaScript ES6 Programmatic Example**
-First need Door defination
-```javascript
-class WoodenDoor {
-  constructor(width, height){
-     this.height = height
-     this.width = width 
-  }
-  getHeight(){
-     return this.height
-  }
-  
-  getWidth() {
-     return this.width
-  }
-
-
-```
-Then we have our door factory that makes the door and returns it
-```javascript
-class DoorFactory {
-   static makeDoor(width, height){
-     return new WoodenDoor(width, height)
-   }
-}
-```
-
-And then it can be used as
-```javascript
-const door = DoorFactory.makeDoor(100, 200);
-console.log(door.getWidth()) // Get width
-console.log(door.getHeight()) // get height
 ```
 
 **When to Use?**
@@ -229,80 +204,6 @@ $devManager->takeInterview(); // Output: Asking about design patterns
 
 $marketingManager = new MarketingManager();
 $marketingManager->takeInterview(); // Output: Asking about community building.
-```
-
- **Javascript  ES6 Programmatic Example**
-
-Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
-
-```javascript
-
-class Interviewer
-{
-    askQuestions () {
-      throw new Error("This method must be overwritten!")
-    }
-}
-
-class Developer extends Interviewer
-{
-    askQuestions() {
-       console.log('Asking about design patterns!')
-    }
-}
-
-class CommunityExecutive extends Interviewer
-{
-    askQuestions() {
-       console.log('Asking about community building')
-    }
-}
-
-```
-
-Now let us create our `HiringManager`
-
-```javascript
-class HiringManager
-{
-
-    // Factory method, must return an Interview child
-    makeInterviewer() {
-       throw new Error("This method must be overwritten!")
-    }
-
-    public function takeInterview()
-    {
-        const interviewer = this.makeInterviewer()
-        interviewer.askQuestions()
-    }
-}
-
-```
-Now any child can extend it and provide the required interviewer
-```javascript
-class DevelopmentManager extends HiringManager
-{
-    makeInterviewer() {
-        return new Developer()
-    }
-}
-
-class MarketingManager extends HiringManager
-{
-    makeInterviewer() {
-       return new CommunityExecutive()
-    }
-}
-```
-and then it can be used as
-
-```javascript
-const devManager = new DevelopmentManager()
-devManager.takeInterview() // Output: Asking about design patterns
-
-const marketingManager = new MarketingManager()
-marketingManager.takeInterview() // Output: Asking about community building.
 ```
 
 **When to use?**
@@ -982,7 +883,7 @@ And then it can be used as
 ```php
 // Prepare the employees
 $john = new Developer('John Doe', 12000);
-$jane = new Designer('Jane', 10000);
+$jane = new Designer('Jane Doe', 15000);
 
 // Add them to organization
 $organization = new Organization();
