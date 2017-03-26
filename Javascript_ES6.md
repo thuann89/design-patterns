@@ -260,7 +260,7 @@ class WoodenDoorFactory extends DoorFactory
 }
 
 // Iron door factory to get iron door and the relevant fitting expert
-class IronDoorFactory implements DoorFactory
+class IronDoorFactory extends DoorFactory
 {
     makeDoor() {
         return new IronDoor()
