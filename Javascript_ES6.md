@@ -1,15 +1,9 @@
-Design patterns for PHP 7 and Javascript ES6 is inpired by Design Patterns for Human
-***
+Design patterns Javascript ES6
+===============================
 
-<p align="center">
-🎉 This repo is forked from <a href="https://github.com/kamranahmedse/design-patterns-for-humans"> Design Patterns for Human</a>! 🎉
-</p>
-<p align="center">
-A topic that can easily make anyone's mind wobble. Here I try to make them stick in to your mind (and maybe mine) by explaining them in the <i>simplest</i> way possible.
-</p>
 
 🚀 Introduction
-=================
+----------------
 
 Design patterns are solutions to recurring problems; **guidelines on how to tackle certain problems**. They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen. These are, rather, guidelines on how to tackle certain problems in certain situations.
 
@@ -25,7 +19,7 @@ Wikipedia describes them as
 - Do not try to force them; bad things are supposed to happen, if done so. Keep in mind that design patterns are solutions **to** problems, not solutions **finding** problems; so don't overthink.
 - If used in a correct place in a correct manner, they can prove to be a savior; or else they can result in a horrible mess of a code.
 
-> Also note that the code samples below are in PHP-7 and JavaScript ES6, however this shouldn't stop you because the concepts are same anyways. Plus the **support for other languages is underway**.
+> Also note that the code samples below are in JavaScript ES6, however this shouldn't stop you because the concepts are same anyways. 
 
 Types of Design Patterns
 -----------------
