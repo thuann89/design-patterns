@@ -180,49 +180,52 @@ Wikipedia says
 
 Translating the door example above. First of all we have our `Door` interface and some implementation for it
 
-```php
-interface Door
+```javascript
+class Door
 {
-    public function getDescription();
-}
-
-class WoodenDoor implements Door
-{
-    public function getDescription()
-    {
-        echo 'I am a wooden door';
+    getDescription() {
+       throw new Error("This method must be overwritten!")
     }
 }
 
-class IronDoor implements Door
+class WoodenDoor extends Door
 {
-    public function getDescription()
+    getDescription()
     {
-        echo 'I am an iron door';
+        console.log('I am a wooden door')
+    }
+}
+
+class IronDoor extends Door
+{
+    getDescription()
+    {
+        console.log('I am an iron door')
     }
 }
 ```
 Then we have some fitting experts for each door type
 
-```php
-interface DoorFittingExpert
+```javascript
+class DoorFittingExpert
 {
-    public function getDescription();
-}
-
-class Welder implements DoorFittingExpert
-{
-    public function getDescription()
-    {
-        echo 'I can only fit iron doors';
+    getDescription() {
+       throw new Error("This method must be overwritten!")
     }
 }
 
-class Carpenter implements DoorFittingExpert
+class Welder extends DoorFittingExpert
 {
-    public function getDescription()
+    getDescription()
     {
-        echo 'I can only fit wooden doors';
+        console.log('I can only fit iron doors')
+    }
+}
+
+class Carpenter extends DoorFittingExpert
+{
+    getDescription() {
+        console.log('I can only fit wooden doors')
     }
 }
 ```
