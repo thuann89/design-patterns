@@ -404,55 +404,59 @@ In short, it allows you to create a copy of an existing object and modify it to 
 
 **Programmatic Example**
 
-In PHP, it can be easily done using `clone`
-
-```php
+```javascript
 class Sheep
 {
-    protected $name;
-    protected $category;
-
-    public function __construct(string $name, string $category = 'Mountain Sheep')
-    {
-        $this->name = $name;
-        $this->category = $category;
+    constructor(name, category = 'Mountain Sheep') {
+        this.name = name
+        this.category = category
     }
 
-    public function setName(string $name)
-    {
-        $this->name = $name;
+    set name(name) {
+        this.name = name
     }
 
-    public function getName()
+    get name()
     {
-        return $this->name;
+        return this.name
     }
 
-    public function setCategory(string $category)
-    {
-        $this->category = $category;
+    set category (category){
+        this.category = category
     }
 
-    public function getCategory()
-    {
-        return $this->category;
+    get category() {
+        return this.category
+    }
+    
+    setFeature(key, val) {
+        this[key] = val
+    }
+    
+    clone (){
+        alert('custom cloning function')
+        let cloneObj = new Sheep()
+        let keys = Object.keys(this)
+
+        keys.forEach(k => cloneObj.setFeature(k, this[k]))
+
+        alert("ConcretePrototype1 cloned")
+        return cloneObj
     }
 }
 ```
 Then it can be cloned like below
-```php
-$original = new Sheep('Jolly');
-echo $original->getName(); // Jolly
-echo $original->getCategory(); // Mountain Sheep
+```javascript
+const original = new Sheep('Jolly');
+console.log(original.name) // Jolly
+console.log(original.category) // Mountain Sheep
 
 // Clone and modify what is required
-$cloned = clone $original;
-$cloned->setName('Dolly');
-echo $cloned->getName(); // Dolly
-echo $cloned->getCategory(); // Mountain sheep
+const cloned = original.clone()
+cloned.name = 'Dolly';
+console.log(cloned.name) // Dolly
+console.log(cloned.category) // Mountain sheep
 ```
-
-Also you could use the magic method `__clone` to modify the cloning behavior.
 
 **When to use?**
 
