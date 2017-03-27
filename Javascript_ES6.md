@@ -378,7 +378,7 @@ class BurgerBuilder
 And then it can be used as:
 
 ```javascript
-burger = (new BurgerBuilder(14))
+let burger = (new BurgerBuilder(14))
                     .addPepperoni()
                     .addLettuce()
                     .addTomato()
@@ -412,35 +412,18 @@ class Sheep
         this.category = category
     }
 
-    set name(name) {
-        this.name = name
-    }
-
-    get name()
-    {
-        return this.name
-    }
-
-    set category (category){
-        this.category = category
-    }
-
-    get category() {
-        return this.category
-    }
-    
     setFeature(key, val) {
         this[key] = val
     }
     
     clone (){
-        alert('custom cloning function')
+        console.log('custom cloning function')
         let cloneObj = new Sheep()
         let keys = Object.keys(this)
 
         keys.forEach(k => cloneObj.setFeature(k, this[k]))
 
-        alert("ConcretePrototype1 cloned")
+        console.log("ConcretePrototype1 cloned")
         return cloneObj
     }
 }
@@ -453,7 +436,7 @@ console.log(original.category) // Mountain Sheep
 
 // Clone and modify what is required
 const cloned = original.clone()
-cloned.name = 'Dolly';
+cloned.setFeature('name', 'Dolly')
 console.log(cloned.name) // Dolly
 console.log(cloned.category) // Mountain sheep
 ```
@@ -478,42 +461,41 @@ Singleton pattern is actually considered an anti-pattern and overuse of it shoul
 **Programmatic Example**
 
 To create a singleton, make the constructor private, disable cloning, disable extension and create a static variable to house the instance
-```php
-final class President
+```javascript
+
+let _singleton = null
+// Singleton Class
+class President
 {
-    private static $instance;
-
-    private function __construct()
-    {
-        // Hide the constructor
-    }
-
-    public static function getInstance(): President
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
+    constructor (data) {
+        if(!_singleton) {
+            this.data = data
+            _singleton = this
         }
-
-        return self::$instance;
+        else
+            return _singleton
+        console.log("President class created")
     }
-
-    private function __clone()
-    {
-        // Disable cloning
+    // Singleton Operation
+    presidentOperation () {
+        console.log('President Operation')
     }
-
-    private function __wakeup()
-    {
-        // Disable unserialize
+    // get Singleton Data
+    getPresidentInfo () {
+        return this.data
     }
 }
 ```
 Then in order to use
-```php
-$president1 = President::getInstance();
-$president2 = President::getInstance();
+```javascript
+    const president1 = new President("Trump")
+    const president2 = new President("Hilarry")
+    console.log(president1.getPresidentInfo())
+    console.log(president2.getPresidentInfo())
+    console.log(president1 instanceof President)
+    console.log(president2 instanceof President)
+    console.log(president1 === president2)
 
-var_dump($president1 === $president2); // true
 ```
 
 Structural Design Patterns
