@@ -463,38 +463,57 @@ Singleton pattern is actually considered an anti-pattern and overuse of it shoul
 To create a singleton, make the constructor private, disable cloning, disable extension and create a static variable to house the instance
 ```javascript
 
-let _singleton = null
-// Singleton Class
-class President
-{
-    constructor (data) {
-        if(!_singleton) {
-            this.data = data
-            _singleton = this
-        }
-        else
-            return _singleton
-        console.log("President class created")
+let instance = null;
+
+class Singleton {
+  static get instance() {
+    return instance;
+  }
+
+  static set instance(_instance) {
+    instance = _instance;
+  }
+
+  constructor() {
+    if (Singleton.instance === null) {
+      Singleton.instance = this;
     }
-    // Singleton Operation
-    presidentOperation () {
-        console.log('President Operation')
-    }
-    // get Singleton Data
-    getPresidentInfo () {
-        return this.data
-    }
+    return Singleton.instance;
+  }
+
+  toString() {
+    return "[object Singleton]";
+  }
+
+  getInstance() {
+    return new Singleton();
+  }
 }
+
 ```
+or can be written like this (ES6 modular)
+
+```javascript
+export default function Singleton(instance) {
+  if (!Singleton.getInstance) {
+    Singleton.getInstance = function() {
+      return instance;
+    };
+    instance = new Singleton;
+  }
+  this.toString = function() {
+    return "[object Singleton]";
+  };
+}(new Singleton);
+
+```
+
 Then in order to use
 ```javascript
-const president1 = new President("Trump")
-const president2 = new President("Hilarry")
-console.log(president1.getPresidentInfo()) // Trump
-console.log(president2.getPresidentInfo()) // Trump
-console.log(president1 instanceof President) // true
-console.log(president2 instanceof President) // true
-console.log(president1 === president2) // true
+const oSingle1 = new Singleton();
+const oSingle2 = new Singleton();
+console.log(new Singleton().toString());
+console.log("oSingle1 is the same instance that oSingle2? " + (oSingle1 === oSingle2));
 
 ```
 
@@ -617,81 +636,76 @@ Wikipedia says
 Translating our WebPage example from above. Here we have the `WebPage` hierarchy
 
 ```php
-interface WebPage
+class WebPage
 {
-    public function __construct(Theme $theme);
-    public function getContent();
-}
-
-class About implements WebPage
-{
-    protected $theme;
-
-    public function __construct(Theme $theme)
-    {
-        $this->theme = $theme;
-    }
-
-    public function getContent()
-    {
-        return "About page in " . $this->theme->getColor();
+    constructor(theme) {}
+    getContent() {
+       throw new Error('This method must be overwritten')
     }
 }
 
-class Careers implements WebPage
+class About extends WebPage
 {
-    protected $theme;
 
-    public function __construct(Theme $theme)
+    constructor(theme)
     {
-        $this->theme = $theme;
+        this.theme = theme
     }
 
-    public function getContent()
-    {
-        return "Careers page in " . $this->theme->getColor();
+    getContent(){
+        return `About page in ${this.theme.getColor()}`
+    }
+}
+
+class Careers extends WebPage
+{   
+    constructor(theme){
+        this.theme = theme
+    }
+
+    getContent() {
+        return `Career page in ${this.theme.getColor()}`
     }
 }
 ```
 And the separate theme hierarchy
 ```php
 
-interface Theme
+class Theme
 {
-    public function getColor();
+    getColor(){
+       throw new Error('This method must be overwritten')
+    }
 }
 
-class DarkTheme implements Theme
+class DarkTheme extends Theme
 {
-    public function getColor()
-    {
+    getColor() {
         return 'Dark Black';
     }
 }
-class LightTheme implements Theme
+class LightTheme extends Theme
 {
-    public function getColor()
-    {
+    getColor(){
         return 'Off white';
     }
 }
-class AquaTheme implements Theme
+class AquaTheme extends Theme
 {
-    public function getColor()
-    {
+    getColor() {
         return 'Light blue';
     }
 }
 ```
 And both the hierarchies
-```php
-$darkTheme = new DarkTheme();
+```javascript
+const darkTheme = new DarkTheme()
 
-$about = new About($darkTheme);
-$careers = new Careers($darkTheme);
+const about = new About(darkTheme)
+const careers = new Careers(darkTheme)
 
-echo $about->getContent(); // "About page in Dark Black";
-echo $careers->getContent(); // "Careers page in Dark Black";
+console.log(about.getContent()) // "About page in Dark Black";
+console.log(careers.getContent()) // "Careers page in Dark Black";
 ```
 
 🌿 Composite
@@ -710,102 +724,94 @@ Wikipedia says
 
 Taking our employees example from above. Here we have different employee types
 
-```php
-interface Employee
+```javascript
+class Employee
 {
-    public function __construct(string $name, float $salary);
-    public function getName(): string;
-    public function setSalary(float $salary);
-    public function getSalary(): float;
-    public function getRoles(): array;
-}
-
-class Developer implements Employee
-{
-    protected $salary;
-    protected $name;
-
-    public function __construct(string $name, float $salary)
-    {
-        $this->name = $name;
-        $this->salary = $salary;
+    constructor(name, salary) {
+        throw new Error('This is interface, cannot be instantiated ')
     }
-
-    public function getName(): string
-    {
-        return $this->name;
+    getName() {
+       throw new Error('This method must be overwritten')
     }
-
-    public function setSalary(float $salary)
-    {
-        $this->salary = $salary;
+    setSalary(salary) {
+       throw new Error('This method must be overwritten')
     }
-
-    public function getSalary(): float
-    {
-        return $this->salary;
+    getSalary() {
+       throw new Error('This method must be overwritten')
     }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
+    getRoles() {
+       throw new Error('This method must be overwritten')
     }
 }
 
-class Designer implements Employee
+class Developer extends Employee
 {
-    protected $salary;
-    protected $name;
-
-    public function __construct(string $name, float $salary)
+    constructor(name, salary)
     {
-        $this->name = $name;
-        $this->salary = $salary;
+        this.name = name
+        this.salary = salary
     }
 
-    public function getName(): string
-    {
-        return $this->name;
+    getName() {
+        return this.name
     }
 
-    public function setSalary(float $salary)
+    setSalary(salary)
     {
-        $this->salary = $salary;
+        this.salary = salary
     }
 
-    public function getSalary(): float
-    {
-        return $this->salary;
+    getSalary(){
+        return this.salary
     }
 
-    public function getRoles(): array
-    {
-        return $this->roles;
+    getRoles() {
+        return this.roles
+    }
+}
+
+class Designer extends Employee
+{
+    constructor(name, salary) {
+        this.name = name
+        this.salary = salary
+    }
+
+    getName(){
+        return this.name
+    }
+
+    setSalary(salary) {
+        this.salary = salary
+    }
+
+    getSalary() {
+        return this.salary
+    }
+
+    getRoles(){
+        return this.roles
     }
 }
 ```
 
 Then we have an organization which consists of several different types of employees
 
-```php
+```javascript
 class Organization
 {
-    protected $employees;
-
-    public function addEmployee(Employee $employee)
-    {
-        $this->employees[] = $employee;
+    
+    addEmployee(employee) {
+        this.employees.push(employee)
     }
 
-    public function getNetSalaries(): float
-    {
-        $netSalary = 0;
-
-        foreach ($this->employees as $employee) {
-            $netSalary += $employee->getSalary();
+    getNetSalaries() {
+        let netSalary = 0 
+        forEach (employee in this.employees) {
+            netSalary += employee.getSalary()
         }
 
-        return $netSalary;
+        return netSalary
     }
 }
 ```
@@ -814,15 +820,15 @@ And then it can be used as
 
 ```php
 // Prepare the employees
-$john = new Developer('John Doe', 12000);
-$jane = new Designer('Jane', 10000);
+const john = new Developer('John Doe', 12000)
+const jane = new Designer('Jane', 10000)
 
 // Add them to organization
-$organization = new Organization();
-$organization->addEmployee($john);
-$organization->addEmployee($jane);
+const organization = new Organization()
+organization.addEmployee(john)
+organization.addEmployee(jane)
 
-echo "Net salaries: " . $organization->getNetSalaries(); // Net Salaries: 22000
+console.log(`Net salaries: ${organization.getNetSalaries()}`) // Net Salaries: 22000
 ```
 
 ☕ Decorator
