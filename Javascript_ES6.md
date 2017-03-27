@@ -488,13 +488,13 @@ class President
 ```
 Then in order to use
 ```javascript
-    const president1 = new President("Trump")
-    const president2 = new President("Hilarry")
-    console.log(president1.getPresidentInfo())
-    console.log(president2.getPresidentInfo())
-    console.log(president1 instanceof President)
-    console.log(president2 instanceof President)
-    console.log(president1 === president2)
+const president1 = new President("Trump")
+const president2 = new President("Hilarry")
+console.log(president1.getPresidentInfo()) // Trump
+console.log(president2.getPresidentInfo()) // Trump
+console.log(president1 instanceof President) // true
+console.log(president2 instanceof President) // true
+console.log(president1 === president2) // true
 
 ```
 
@@ -533,71 +533,70 @@ Consider a game where there is a hunter and he hunts lions.
 
 First we have an interface `Lion` that all types of lions have to implement
 
-```php
-interface Lion
+```javascript
+class Lion
 {
-    public function roar();
-}
-
-class AfricanLion implements Lion
-{
-    public function roar()
-    {
+    roar() {
+       throw new Error('This method must be overwritten')
     }
 }
 
-class AsianLion implements Lion
+class AfricanLion extends Lion
 {
-    public function roar()
-    {
+    roar() {
+       console.log('African Lion roar')
+    }
+}
+
+class AsianLion extends Lion
+{
+    roar(){
+       console.log('Asian Lion roar')
     }
 }
 ```
 And hunter expects any implementation of `Lion` interface to hunt.
-```php
+```javascript
 class Hunter
 {
-    public function hunt(Lion $lion)
-    {
+    hunt(lion){
+       console.log('Hunt a lion')
     }
 }
 ```
 
 Now let's say we have to add a `WildDog` in our game so that hunter can hunt that also. But we can't do that directly because dog has a different interface. To make it compatible for our hunter, we will have to create an adapter that is compatible
 
-```php
+```javascript
 // This needs to be added to the game
 class WildDog
 {
-    public function bark()
-    {
+    bark(){
+       console.log('Wilddog bark bark')
     }
 }
 
 // Adapter around wild dog to make it compatible with our game
-class WildDogAdapter implements Lion
+class WildDogAdapter extends Lion
 {
-    protected $dog;
 
-    public function __construct(WildDog $dog)
-    {
-        $this->dog = $dog;
+    constructor(wildDog){
+        this.dog = wildDog
     }
 
-    public function roar()
-    {
-        $this->dog->bark();
+    roar() {
+        this.dog.bark()
     }
 }
 ```
 And now the `WildDog` can be used in our game using `WildDogAdapter`.
 
-```php
-$wildDog = new WildDog();
-$wildDogAdapter = new WildDogAdapter($wildDog);
+```javascript
+wildDog = new WildDog()
+wildDogAdapter = new WildDogAdapter(wildDog)
 
-$hunter = new Hunter();
-$hunter->hunt($wildDogAdapter);
+hunter = new Hunter()
+hunter.hunt(wildDogAdapter)
 ```
 
 🚡 Bridge
