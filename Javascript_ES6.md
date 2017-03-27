@@ -126,8 +126,7 @@ class HiringManager
        throw new Error("This method must be overwritten!")
     }
 
-    public function takeInterview()
-    {
+    takeInterview () {
         const interviewer = this.makeInterviewer()
         interviewer.askQuestions()
     }
@@ -313,8 +312,8 @@ Wikipedia says
 
 Having said that let me add a bit about what telescoping constructor anti-pattern is. At one point or the other we have all seen a constructor like below:
 
-```php
-public function __construct($size, $cheese = true, $pepperoni = true, $tomato = false, $lettuce = true)
+```javascript
+constructor(size, cheese = true, pepperoni = true, tomato = false, lettuce = true)
 {
 }
 ```
@@ -325,82 +324,65 @@ As you can see; the number of constructor parameters can quickly get out of hand
 
 The sane alternative is to use the builder pattern. First of all we have our burger that we want to make
 
-```php
+```javascript
 class Burger
 {
-    protected $size;
-
-    protected $cheese = false;
-    protected $pepperoni = false;
-    protected $lettuce = false;
-    protected $tomato = false;
-
-    public function __construct(BurgerBuilder $builder)
+    constructor(builder)
     {
-        $this->size = $builder->size;
-        $this->cheese = $builder->cheese;
-        $this->pepperoni = $builder->pepperoni;
-        $this->lettuce = $builder->lettuce;
-        $this->tomato = $builder->tomato;
+        this.size = builder.size
+        this.cheese = builder.cheese
+        this.pepperoni = builder.pepperoni
+        this.lettuce = builder.lettuce
+        this.tomato = builder.tomato
     }
 }
 ```
 
 And then we have the builder
 
-```php
+
+```javascript
 class BurgerBuilder
 {
-    public $size;
-
-    public $cheese = false;
-    public $pepperoni = false;
-    public $lettuce = false;
-    public $tomato = false;
-
-    public function __construct(int $size)
+    constructor(size)
     {
-        $this->size = $size;
+        this.size = size
     }
 
-    public function addPepperoni()
-    {
-        $this->pepperoni = true;
-        return $this;
+    addPepperoni () {
+        this.pepperoni = true
+        return this
     }
 
-    public function addLettuce()
-    {
-        $this->lettuce = true;
-        return $this;
+    addLettuce () {
+        this.lettuce = true
+        return this
     }
 
-    public function addCheese()
-    {
-        $this->cheese = true;
-        return $this;
+    addCheese () {
+        this.cheese = true
+        return this
     }
 
-    public function addTomato()
-    {
-        $this->tomato = true;
-        return $this;
+    addTomato () {
+        this.tomato = true
+        return this
     }
 
-    public function build(): Burger
+    build()
     {
-        return new Burger($this);
+        return new Burger(this)
     }
 }
 ```
 And then it can be used as:
 
-```php
-$burger = (new BurgerBuilder(14))
-                    ->addPepperoni()
-                    ->addLettuce()
-                    ->addTomato()
-                    ->build();
+```javascript
+burger = (new BurgerBuilder(14))
+                    .addPepperoni()
+                    .addLettuce()
+                    .addTomato()
+                    .build()
 ```
 
 **When to use?**
