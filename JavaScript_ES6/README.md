@@ -848,107 +848,96 @@ Wikipedia says
 
 Lets take coffee for example. First of all we have a simple coffee implementing the coffee interface
 
-```php
-interface Coffee
+```javascript
+class Coffee
 {
-    public function getCost();
-    public function getDescription();
+    getCost() {
+       throw new Error('This method must be overwritten')
+    }
+    getDescription() {
+       throw new Error('this method must be overwritten')
+    }
 }
 
-class SimpleCoffee implements Coffee
+class SimpleCoffee extends Coffee
 {
-    public function getCost()
-    {
+    getCost() {
         return 10;
     }
 
-    public function getDescription()
-    {
+    getDescription() {
         return 'Simple coffee';
     }
 }
 ```
 We want to make the code extensible to allow options to modify it if required. Lets make some add-ons (decorators)
-```php
-class MilkCoffee implements Coffee
+```javascript
+class MilkCoffee extends Coffee
 {
-    protected $coffee;
 
-    public function __construct(Coffee $coffee)
-    {
-        $this->coffee = $coffee;
+    // Coffee Coffee
+    constructor(coffee) {
+        this.coffee = coffee
     }
 
-    public function getCost()
-    {
-        return $this->coffee->getCost() + 2;
+    getCost() {
+        return this.coffee.getCost() + 2
     }
 
-    public function getDescription()
-    {
-        return $this->coffee->getDescription() . ', milk';
+    getDescription() {
+        return `${this.coffee->getDescription()}, milk`
     }
 }
 
-class WhipCoffee implements Coffee
+class WhipCoffee extends Coffee
 {
-    protected $coffee;
-
-    public function __construct(Coffee $coffee)
-    {
-        $this->coffee = $coffee;
+    constructor(coffee) {
+        this.coffee = coffee
     }
 
-    public function getCost()
-    {
-        return $this->coffee->getCost() + 5;
+    getCost() {
+        return this.coffee.getCost() + 5
     }
 
-    public function getDescription()
-    {
-        return $this->coffee->getDescription() . ', whip';
+    getDescription() {
+        return `${this.coffee.getDescription()} , whip`
     }
 }
 
-class VanillaCoffee implements Coffee
+class VanillaCoffee extends Coffee
 {
-    protected $coffee;
-
-    public function __construct(Coffee $coffee)
-    {
-        $this->coffee = $coffee;
+    constructor(coffee) {
+        this.coffee = coffee
     }
 
-    public function getCost()
-    {
-        return $this->coffee->getCost() + 3;
+    getCost() {
+        return this.coffee.getCost() + 3
     }
 
-    public function getDescription()
-    {
-        return $this->coffee->getDescription() . ', vanilla';
+    getDescription() {
+        return `${this.coffee.getDescription()} , vanilla`
     }
 }
 ```
 
 Lets make a coffee now
 
-```php
-$someCoffee = new SimpleCoffee();
-echo $someCoffee->getCost(); // 10
-echo $someCoffee->getDescription(); // Simple Coffee
+```javascript
+const someCoffee = new SimpleCoffee()
+console.log(someCoffee.getCost()) // 10
+console.log(someCoffee.getDescription()) // Simple Coffee
 
-$someCoffee = new MilkCoffee($someCoffee);
-echo $someCoffee->getCost(); // 12
-echo $someCoffee->getDescription(); // Simple Coffee, milk
+const someCoffee = new MilkCoffee(someCoffee);
+console.log(someCoffee.getCost()) // 12
+console.log(someCoffee.getDescription()) // Simple Coffee, milk
 
-$someCoffee = new WhipCoffee($someCoffee);
-echo $someCoffee->getCost(); // 17
-echo $someCoffee->getDescription(); // Simple Coffee, milk, whip
+const someCoffee = new WhipCoffee(someCoffee);
+console.log(someCoffee.getCost()) // 17
+console.log(someCoffee.getDescription()) // Simple Coffee, milk, whip
 
-$someCoffee = new VanillaCoffee($someCoffee);
-echo $someCoffee->getCost(); // 20
-echo $someCoffee->getDescription(); // Simple Coffee, milk, whip, vanilla
+const someCoffee = new VanillaCoffee($someCoffee);
+console.log(someCoffee.getCost()) // 20
+console.log(someCoffee->getDescription()) // Simple Coffee, milk, whip, vanilla
 ```
 
 📦 Facade
